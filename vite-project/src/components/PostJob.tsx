@@ -1,13 +1,21 @@
-import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from'react-router-dom';
 
+type JobPost = {
+  category: string;
+  salary:string;
+  title:string;
+};
 
-const PostJob = ({ addJobPost }) => {
+type PostJobProps = {
+  addJobPost: (jobPost: JobPost) => void;
+};
+
+const PostJob: React.FC<PostJobProps> = ({ addJobPost }) => {
     const categories = ['事務','エンジニア','営業','デザイン','マーケティング','財務・経理','人事','カスタマーサポート','製造','医療・介護'];
-    const [category, setCategory] = useState('カテゴリを選択 ▼');
-    const [salary, setSalary] = useState('');
-    const [title, setTitle] = useState('');
+    const [category, setCategory] = useState<string>('カテゴリを選択 ▼');
+    const [salary, setSalary] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
 
     const navigate = useNavigate();
 

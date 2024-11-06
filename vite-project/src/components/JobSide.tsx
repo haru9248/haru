@@ -1,20 +1,25 @@
-import React from 'react';
 import { useState } from 'react';
 
-const JobSide =({ filters, setFilters, selectedSalary, setSelectedSalary })=>{
+type JobSideProps = {
+    filters: string[];
+    setFilters: React.Dispatch<React.SetStateAction<string[]>>;
+    selectedSalary: string;
+    setSelectedSalary:React.Dispatch<React.SetStateAction<string>>;
+}
+const JobSide: React.FC<JobSideProps> =({ filters, setFilters, selectedSalary, setSelectedSalary })=>{
 
     const [showArrow, setShowArrow] = useState(true);
     const categories = ['事務','エンジニア','営業','デザイン','マーケティング','財務・経理','人事','カスタマーサポート','製造','医療・介護'];
 
     const salaryOptions = ['300万円以上', '500万円以上', '700万円以上', '1000万円以上'];
 
-    const handleCategoryChange = (category) =>{if(filters.includes(category)) {
+    const handleCategoryChange = (category: string) =>{if(filters.includes(category)) {
         setFilters(filters.filter((cat) => cat !== category));
     }else {
         setFilters([...filters, category]);
     }
 };
-const handleSalaryChange = (e) =>{
+const handleSalaryChange = (e:React.ChangeEvent<HTMLSelectElement>) =>{
     setSelectedSalary(e.target.value);
     setShowArrow(false);
 };

@@ -1,12 +1,23 @@
-import React from 'react';
 import {useState} from 'react';
 import '../css/JobList.css';
 
-const convertToHalfWidth = (str) => {
+const convertToHalfWidth = (str: string) => {
     return str.replace(/[０-９]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xFF10 + 48));
 };
 
-const JobList =({ jobPosts, filters, selectedSalary })=>{
+type JobPost ={
+    title: string;
+    category: string;
+    salary: string;
+};
+
+type JobListProps = {
+    jobPosts: JobPost[];
+    filters: string[];
+    selectedSalary: string;
+};
+
+const JobList: React.FC<JobListProps> =({ jobPosts, filters, selectedSalary })=>{
     const SalaryThreshold = parseInt(selectedSalary.replace('万円', ''), 10) * 10000;
 
     const filteredJobs = jobPosts.filter((job) => {
@@ -20,14 +31,14 @@ const JobList =({ jobPosts, filters, selectedSalary })=>{
         return meetsCategoryFilter && meetsSalaryFilter;
     });
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const jobsPerPage = 10;
     const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
     
     const startIndex = (currentPage - 1) * jobsPerPage;
     const currentJobs = filteredJobs.slice(startIndex, startIndex + jobsPerPage);
 
-    const handlePageChange = (page) =>{
+    const handlePageChange = (page:number) =>{
         if (page >= 1 && page <= totalPages) {
             setCurrentPage(page);
         }

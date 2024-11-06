@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const Header =()=>{
+const Header : React.FC =()=>{
     return(
         <header className="h-[5%] bg-[#313647] flex justify-between items-center p-2 font-mono">
         <h1 className="text-white font-bold text-xl">求人検索アプリ</h1>
